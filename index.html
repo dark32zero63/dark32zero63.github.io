@@ -3,29 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carta de Amor</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>Carta de Amor Interactiva</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: opacity 1s;
+        }
+        .hidden {
+            opacity: 0;
+        }
+        .container {
+            position: relative;
+            width: 300px;
+            cursor: pointer;
+        }
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            background: red;
+            clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0 100%, 0 30%);
+            transition: transform 1s ease-in-out;
+        }
+        .letter {
+            position: absolute;
+            width: 100%;
+            background: white;
+            top: 20px;
+            left: 0;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .letter p {
+            margin: 10px 0;
+        }
+        .container.open .envelope {
+            transform: translateY(-100px);
+        }
+        .container.open .letter {
+            opacity: 1;
+        }
+        #audio-container {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <div class="carta">
-        <div class="portada">
-            <h1>Carta de Amor</h1>
-        </div>
-        <div class="contenido">
-            <p id="poema"></p>
-            <div class="corazones">
-                <img src="corazon.png" alt="Corazón">
-                <img src="corazon.png" alt="Corazón">
-                <img src="corazon.png" alt="Corazón">
-            </div>
+    <div class="title" id="title">Para la mujer más bella entre todas</div>
+    
+    <div class="container" onclick="openLetter()">
+        <div class="envelope"></div>
+        <div class="letter">
+            <p>En la profundidad de tu mirada, un misterio se revela,</p>
+            <p>un fulgor que emula el alba naciente,</p>
+            <p>ese instante mágico en que el mundo se despereza,</p>
+            <p>y la esperanza florece, incluso el amar se hace latente.</p>
+            
+            <p>No sé si es la luz que danza en tu cabellera,</p>
+            <p>o la gracia de tu sonrisa espontánea y sincera,</p>
+            <p>pero tu cercanía me hechiza de tal manera,</p>
+            <p>que el tiempo se suspende, y mi ser renace, cual primavera.</p>
+            
+            <p>No te ofrezco odas de pasión desenfrenada,</p>
+            <p>ni juramentos que el futuro no ha deparado,</p>
+            <p>sino versos que celebran los detalles que me agradan,</p>
+            <p>aquellos que inspiran mi anhelo de crecer a tu lado.</p>
+            
+            <p>Hoy, no te entrego un presente material,</p>
+            <p>sino estas palabras que brotan desde mi alma, cual manantial,</p>
+            <p>pues el amor no es una meta, sino un sendero celestial,</p>
+            <p>que ansío recorrer contigo, mi amada, mi ideal. ❤️</p>
         </div>
     </div>
-    <button id="boton-volver">Volver</button>
-    <audio id="musica-fondo" loop>
-        <source src="musica.mp3" type="audio/mp3">
-        Tu navegador no soporta el elemento audio.
-    </audio>
-
-    <script src="script.js"></script>
+    
+    <div id="audio-container">
+        <audio id="background-audio" src="musica.mp3"></audio>
+    </div>
+    
+    <script>
+        function openLetter() {
+            let container = document.querySelector('.container');
+            let title = document.getElementById('title');
+            let audio = document.getElementById('background-audio');
+            
+            container.classList.toggle('open');
+            title.classList.toggle('hidden');
+            
+            if (container.classList.contains('open')) {
+                audio.play();
+            } else {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+    </script>
 </body>
 </html>
